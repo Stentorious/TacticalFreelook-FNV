@@ -1,0 +1,30 @@
+int iKeyID
+
+float fCamRotX
+float fCamRotY
+float fCamRotZ
+
+begin Function {iKeyID}
+
+	if eval Goo1.AuxVarGetFlt "*Freelook" == 0 || Player.GetDead
+		return
+	endif
+
+	Goo1.AuxVarSetFlt "*Freelook" 0
+
+	; Reset autoaim
+	SetNumericGameSetting "fAutoAimMaxDegrees" (Goo1.AuxVarGetFlt "*Freelook_Cache" 4)
+
+	; Enable controls
+	ToggleMouseMovement 3
+	;SetStickDisabled 1 0
+	EnablePlayerControlsAltEx 30132
+	EC 5
+	EC 6
+
+	; Update reticle
+	SetUIFloatAlt "HUDMainMenu\JDC\_visible_stent" 1
+	SetUIFloatAlt "HUDMainMenu\ReticleCenter\reticle_center\alpha" 255
+	SetUIFloatAlt "HUDMainMenu\FreelookDot\_visible" 0
+
+end

@@ -1,0 +1,71 @@
+; Free Look - Stentorious
+
+; On game load
+; Inject nodes
+if eval !ModelHasBlock Player "FreelookPitch"
+	InsertNode Player 3 "Camera1st|^FreelookPitch"
+endif
+if eval !ModelHasBlock Player "FreelookYaw"
+	InsertNode Player 3 "FreelookPitch|^FreelookYaw"
+endif
+if eval !ModelHasBlock Player "FreelookOffset"
+	InsertNode Player 3 "FreelookYaw|^FreelookOffset"
+endif
+
+; Reset node rotations
+Player.SetNifRot "FreelookPitch" 0 0 0 0 2
+Player.SetNifRot "FreelookYaw" 0 0 0 0 2
+Player.SetNifRot "FreelookOffset" 0 0 0 0 2
+Goo1.AuxVarSetFlt "*Freelook_Cache" 0 0	; Pitch
+Goo1.AuxVarSetFlt "*Freelook_Cache" 0 1	; Yaw
+Goo1.AuxVarSetFlt "*Freelook_Cache" 0 2	; Offset
+Goo1.AuxVarSetFlt "*Freelook_Cache" 0 3	; Pitch offset limit
+Goo1.AuxVarSetFlt "*Freelook_Cache" 0 4	; fAutoAimMaxDegrees
+
+; Reset free look
+if eval Goo1.AuxVarGetFlt "*Freelook" == 1
+	SetNumericGameSetting "fAutoAimMaxDegrees" (Goo1.AuxVarGetFlt "*Freelook_Cache" 4)
+	ToggleMouseMovement 3
+	;SetStickDisabled 1 0
+	EC 5
+	EC 6
+	SetUIFloatAlt "HUDMainMenu\JDC\_visible_stent" 1
+	SetUIFloatAlt "HUDMainMenu\ReticleCenter\reticle_center\alpha" 255
+	SetUIFloatAlt "HUDMainMenu\FreelookDot\_visible" 0
+	Goo1.AuxVarSetFlt "*Freelook" 0
+endif
+
+; On game restart
+if eval Goo1.AuxVarGetFlt "*Freelook_Init"
+	return
+endif
+Goo1.AuxVarSetFlt "*Freelook_Init" 1
+
+if eval GetNVSEVersion < 6 || (GetNVSEVersion == 6 && GetNVSERevision < 4)
+	MessageBoxEx "Free Look missing requirement!%rInstall xNVSE 6.4.0+."
+	return
+endif
+if GetPluginVersion "JohnnyGuitarNVSE" < 250
+	MessageBoxEx "Free Look missing requirement!%rInstall latest JohnnyGuitar NVSE."
+	return
+endif
+if eval GetPluginVersion "ShowOffNVSE Plugin" < 145
+	MessageBoxEx "Free Look missing requirement!%rInstall latest ShowOff NVSE plugin."
+	return
+endif
+
+; Load INI settings
+Goo1.AuxVarSetFlt "*Freelook_INI" (GetMaxOf 0 (GetINIFloat_Cached "General:bAllowAttacking" "Stentorious\Freelook.ini" 0)) 0
+Goo1.AuxVarSetFlt "*Freelook_INI" (GetMaxOf 0 (GetINIFloat_Cached "General:bAllowAiming" "Stentorious\Freelook.ini" 0)) 1
+Goo1.AuxVarSetFlt "*Freelook_INI" (Clamp (GetINIFloat_Cached "General:iReticleBehavior" "Stentorious\Freelook.ini" 1) 0 2) 2
+Goo1.AuxVarSetFlt "*Freelook_INI" (Clamp (GetINIFloat_Cached "Camera:fLimitYaw" "Stentorious\Freelook.ini" 80) 10 170) 3
+Goo1.AuxVarSetFlt "*Freelook_INI" (Clamp (GetINIFloat_Cached "Camera:fLimitPitchOffset" "Stentorious\Freelook.ini" 20) 0 80) 4
+Goo1.AuxVarSetFlt "*Freelook_INI" ((GetMaxOf 0.1 (GetINIFloat_Cached "Camera:fSensitivityMul" "Stentorious\Freelook.ini" 1)) * 40) 5
+Goo1.AuxVarSetFlt "*Freelook_INI" ((GetMaxOf 0.1 (GetINIFloat_Cached "Camera:fRecenterMul" "Stentorious\Freelook.ini" 1)) * -10) 6
+
+if eval (int iKeyID = GetINIFloat_Cached "General:iKeyBind" "Stentorious\Freelook.ini" 56) > 0
+	SetOnKeyDownEventHandler (CompileScript "Freelook\OnKeyDown.gek") 1 iKeyID
+	SetOnKeyUpEventHandler (CompileScript "Freelook\OnKeyUp.gek") 1 iKeyID
+endif
+
+CloseFileSO "Stentorious\Freelook.ini" 0

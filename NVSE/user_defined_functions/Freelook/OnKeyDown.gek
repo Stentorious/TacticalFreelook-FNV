@@ -1,0 +1,54 @@
+int iKeyID
+
+int iReticle
+float fPlrRotX
+
+begin Function {iKeyID}
+
+	if eval MenuMode || Player.GetIsRagdolled || Player.GetDead || GetPipBoyMode != 0 || GetPCUsingScope || Player.GetSitting || IsInKillCam || GetPlayerControlsDisabled 1 1 0 1 1 0 0
+		return
+	endif
+
+	; Disable auto aim
+	Goo1.AuxVarSetFlt "*Freelook_Cache" (GetNumericGameSetting "fAutoAimMaxDegrees") 4
+	SetNumericGameSetting "fAutoAimMaxDegrees" 0
+
+	; Disable controls
+	if eval Goo1.AuxVarGetFlt "*Freelook_INI" 1 == 0 && GSIV 0 > 0
+		SetSmoothIronsightsValue 0 0
+	endif
+	ToggleMouseMovement 0
+	;SetStickDisabled 1 1
+	if eval Player.IsEquippedWeaponScoped; && Player.IsWeaponOut
+		DC 6
+	endif
+	DC 5
+	DisablePlayerControlsAltEx (28980 + (128 * !(Goo1.AuxVarGetFlt "*Freelook_INI" 0)) + (1024 * !(Goo1.AuxVarGetFlt "*Freelook_INI" 1)))
+
+	; Update reticle
+	if eval (iReticle = Goo1.AuxVarGetFlt "*Freelook_INI" 2) < 2
+		SetUIFloatAlt "HUDMainMenu\JDC\_visible_stent" 0
+		SetUIFloatAlt "HUDMainMenu\ReticleCenter\reticle_center\alpha" 0
+		if eval iReticle == 1
+			SetUIFloatAlt "HUDMainMenu\FreelookDot\_visible" 1
+		endif
+	endif
+
+	; Update node starting offsets
+	fPlrRotX = Player.GetAngle X
+	Player.SetNifRot "FreelookPitch" fPlrRotX 0 0 0 2
+	Goo1.AuxVarSetFlt "*Freelook_Cache" fPlrRotX 0
+	Player.SetNifRot "FreelookOffset" (-(fPlrRotX)) 0 0 0 2
+	Goo1.AuxVarSetFlt "*Freelook_Cache" (-(fPlrRotX)) 2
+
+	;if eval Player.IsWeaponOut
+		Goo1.AuxVarSetFlt "*Freelook_Cache" (GetMinOf 89 (fPlrRotX + (Goo1.AuxVarGetFlt "*Freelook_INI" 4))) 3
+	;else
+	;	Goo1.AuxVarSetFlt "*Freelook_Cache" 90 3
+	;endif
+
+	; Enable free looking
+	Goo1.AuxVarSetFlt "*Freelook" 1
+	SGMLC (CompileScript "Freelook\MainLoop.gek") 1 1 9
+
+end

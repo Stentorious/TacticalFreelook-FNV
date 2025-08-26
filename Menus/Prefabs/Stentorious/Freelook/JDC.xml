@@ -1,0 +1,19 @@
+<_visible_stent> 1 </_visible_stent>
+<visible>
+	<copy> 0 </copy>
+	<or>
+		<copy src="ReticleCenter" trait="visible"/>
+		<or src="AmmoTypeLabel" trait="visible"/>
+		<or src="ActionPoints" trait="visible"/>
+		<or src="HitPoints" trait="visible"/>
+		<and>
+			<copy src="me()" trait="_JDCVisible"/>
+			<eq> 1 </eq>
+		</and>
+	</or>
+	<or>
+		<copy src="me()" trait="_JDCVisible"/>
+		<eq> -1 </eq>
+	</or>
+	<and src="me()" trait="_visible_stent"/>
+</visible>

@@ -1,0 +1,24 @@
+<image name="FreeLookDot">
+	<_visible> 0 </_visible>
+	<visible>
+		<copy src="ReticleCenter" trait="visible" />
+		<or src="AmmoTypeLabel" trait="visible" />
+		<or src="ActionPoints" trait="visible" />
+		<or src="HitPoints" trait="visible" />
+		<and src="me()" trait="_visible" />
+	</visible>
+	<x>
+		<copy src="screen()" trait="width"/>
+		<sub src="me()" trait="width"/>
+		<div> 2 </div>
+	</x>
+	<y>
+		<copy src="screen()" trait="height"/>
+		<sub src="me()" trait="height"/>
+		<div> 2 </div>
+	</y>
+	<width> 8 </width>
+	<height> 8 </height>
+	<zoom> -1 </zoom>
+	<filename> Interface/Stentorious/FreeLook/Dot.dds </filename>
+</image>
