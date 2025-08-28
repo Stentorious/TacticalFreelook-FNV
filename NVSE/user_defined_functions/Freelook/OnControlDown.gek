@@ -1,0 +1,14 @@
+int iControlID
+
+begin Function {iControlID}
+
+	if eval IsPC1stPerson == 0
+		return
+	endif
+
+	; Intercept TogglePOV control
+	DC 13
+	AuxTimerStart "*Freelook_POV" 0.2 14
+	Call (CompileScript "Freelook\OnKeyDown.gek") 13
+
+end

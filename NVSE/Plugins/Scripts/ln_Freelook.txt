@@ -23,10 +23,10 @@ Goo1.AuxVarSetFlt "*Freelook_Cache" 0 3	; Pitch offset limit
 Goo1.AuxVarSetFlt "*Freelook_Cache" 0 4	; fAutoAimMaxDegrees
 
 ; Reset free look
-if eval Goo1.AuxVarGetFlt "*Freelook" == 1
+if eval Goo1.AuxVarGetFlt "*Freelook"
 	SetNumericGameSetting "fAutoAimMaxDegrees" (Goo1.AuxVarGetFlt "*Freelook_Cache" 4)
 	ToggleMouseMovement 3
-	;SetStickDisabled 1 0
+	SetStickDisabled 1 0
 	EC 5
 	EC 6
 	SetUIFloatAlt "HUDMainMenu\JDC\_visible_stent" 1
@@ -41,16 +41,17 @@ if eval Goo1.AuxVarGetFlt "*Freelook_Init"
 endif
 Goo1.AuxVarSetFlt "*Freelook_Init" 1
 
+; Requirements check
 if eval GetNVSEVersion < 6 || (GetNVSEVersion == 6 && GetNVSERevision < 4)
-	MessageBoxEx "Free Look missing requirement!%rInstall xNVSE 6.4.0+."
+	MessageBoxEx "Tactical Freelook missing requirement!%rInstall xNVSE 6.4.0+."
 	return
 endif
 if GetPluginVersion "JohnnyGuitarNVSE" < 250
-	MessageBoxEx "Free Look missing requirement!%rInstall latest JohnnyGuitar NVSE."
+	MessageBoxEx "Tactical Freelook missing requirement!%rInstall latest JohnnyGuitar NVSE."
 	return
 endif
 if eval GetPluginVersion "ShowOffNVSE Plugin" < 145
-	MessageBoxEx "Free Look missing requirement!%rInstall latest ShowOff NVSE plugin."
+	MessageBoxEx "Tactical Freelook missing requirement!%rInstall latest ShowOff NVSE plugin."
 	return
 endif
 
@@ -60,12 +61,24 @@ Goo1.AuxVarSetFlt "*Freelook_INI" (GetMaxOf 0 (GetINIFloat_Cached "General:bAllo
 Goo1.AuxVarSetFlt "*Freelook_INI" (Clamp (GetINIFloat_Cached "General:iReticleBehavior" "Stentorious\Freelook.ini" 1) 0 2) 2
 Goo1.AuxVarSetFlt "*Freelook_INI" (Clamp (GetINIFloat_Cached "Camera:fLimitYaw" "Stentorious\Freelook.ini" 80) 10 170) 3
 Goo1.AuxVarSetFlt "*Freelook_INI" (Clamp (GetINIFloat_Cached "Camera:fLimitPitchOffset" "Stentorious\Freelook.ini" 20) 0 80) 4
-Goo1.AuxVarSetFlt "*Freelook_INI" ((GetMaxOf 0.1 (GetINIFloat_Cached "Camera:fSensitivityMul" "Stentorious\Freelook.ini" 1)) * 40) 5
-Goo1.AuxVarSetFlt "*Freelook_INI" ((GetMaxOf 0.1 (GetINIFloat_Cached "Camera:fRecenterMul" "Stentorious\Freelook.ini" 1)) * -10) 6
+Goo1.AuxVarSetFlt "*Freelook_INI" ((GetMaxOf 0.1 (GetINIFloat_Cached "Camera:fSensitivityMouse" "Stentorious\Freelook.ini" 1)) * 40) 5
+Goo1.AuxVarSetFlt "*Freelook_INI" (GetMaxOf 0.1 (GetINIFloat_Cached "Camera:fSensitivityController" "Stentorious\Freelook.ini" 1)) 6
+Goo1.AuxVarSetFlt "*Freelook_INI" ((GetMaxOf 0.1 (GetINIFloat_Cached "Camera:fRecenterMouse" "Stentorious\Freelook.ini" 1)) * -10) 7
+Goo1.AuxVarSetFlt "*Freelook_INI" ((GetMaxOf 0.1 (GetINIFloat_Cached "Camera:fRecenterController" "Stentorious\Freelook.ini" 0.5)) * -5) 8
 
 if eval (int iKeyID = GetINIFloat_Cached "General:iKeyBind" "Stentorious\Freelook.ini" 56) > 0
 	SetOnKeyDownEventHandler (CompileScript "Freelook\OnKeyDown.gek") 1 iKeyID
 	SetOnKeyUpEventHandler (CompileScript "Freelook\OnKeyUp.gek") 1 iKeyID
 endif
+
+; Intercept TogglePOV controls
+if eval GetINIFloat_Cached "General:bUseTogglePOV" "Stentorious\Freelook.ini"
+	SetOnControlDownEventHandler (CompileScript "Freelook\OnControlDown.gek") 1 13
+	SetOnControlUpEventHandler (CompileScript "Freelook\OnControlUp.gek") 1 13
+endif
+
+; Sensitivity update
+Goo1.AuxVarSetFlt "*_Controls:fMouseSensitivity" (GetNumericIniSetting "fMouseSensitivity:Controls" / 0.00125)
+SetJohnnyOnSettingsUpdateEventHandler 1 ({} => Goo1.AuxVarSetFlt "*_Controls:fMouseSensitivity" (GetNumericIniSetting "fMouseSensitivity:Controls" / 0.00125))
 
 CloseFileSO "Stentorious\Freelook.ini" 0

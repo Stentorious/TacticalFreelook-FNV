@@ -2,6 +2,7 @@ int iKeyID
 
 int iReticle
 float fPlrRotX
+float fPitch
 
 begin Function {iKeyID}
 
@@ -18,7 +19,7 @@ begin Function {iKeyID}
 		SetSmoothIronsightsValue 0 0
 	endif
 	ToggleMouseMovement 0
-	;SetStickDisabled 1 1
+	SetStickDisabled 1 1
 	if eval Player.IsEquippedWeaponScoped; && Player.IsWeaponOut
 		DC 6
 	endif
@@ -36,8 +37,9 @@ begin Function {iKeyID}
 
 	; Update node starting offsets
 	fPlrRotX = Player.GetAngle X
-	Player.SetNifRot "FreelookPitch" fPlrRotX 0 0 0 2
-	Goo1.AuxVarSetFlt "*Freelook_Cache" fPlrRotX 0
+	fPitch = fPlrRotX + (Goo1.AuxVarGetFlt "*Freelook_Cache" 0) - ((Goo1.AuxVarGetFlt "*Freelook_Cache" 2) * -1)
+	Player.SetNifRot "FreelookPitch" fPitch 0 0 0 2
+	Goo1.AuxVarSetFlt "*Freelook_Cache" fPitch 0
 	Player.SetNifRot "FreelookOffset" (-(fPlrRotX)) 0 0 0 2
 	Goo1.AuxVarSetFlt "*Freelook_Cache" (-(fPlrRotX)) 2
 

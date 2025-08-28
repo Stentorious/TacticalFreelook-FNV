@@ -1,0 +1,16 @@
+int iControlID
+
+begin Function {iControlID}
+
+	Call (CompileScript "Freelook\OnKeyUp.gek") 13
+
+	; Ignore input if free looking
+	if eval AuxTimerTimeLeft "*Freelook_POV" == -1
+		return
+	endif
+
+	; Toggle POV
+	EC 13
+	TC 13
+
+end

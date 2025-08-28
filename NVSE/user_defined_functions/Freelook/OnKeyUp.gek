@@ -1,9 +1,5 @@
 int iKeyID
 
-float fCamRotX
-float fCamRotY
-float fCamRotZ
-
 begin Function {iKeyID}
 
 	if eval Goo1.AuxVarGetFlt "*Freelook" == 0 || Player.GetDead
@@ -17,7 +13,7 @@ begin Function {iKeyID}
 
 	; Enable controls
 	ToggleMouseMovement 3
-	;SetStickDisabled 1 0
+	SetStickDisabled 1 0
 	EnablePlayerControlsAltEx 30132
 	EC 5
 	EC 6
