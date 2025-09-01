@@ -6,7 +6,7 @@ float fPitch
 
 begin Function {iKeyID}
 
-	if eval MenuMode || Player.GetIsRagdolled || Player.GetDead || GetPipBoyMode != 0 || GetPCUsingScope || Player.GetSitting || IsInKillCam || GetPlayerControlsDisabled 1 1 0 1 1 0 0
+	if eval MenuMode || Player.GetIsRagdolled || Player.GetDead || GetPipBoyMode != 0 || GetPCUsingScope || Player.GetSitting || IsInKillCam || GetPlayerControlsDisabled 1 1 0 1 1 0 0 || (Goo1.AuxVarGetFlt "*Freelook_INI" 9 == 0 && IsPC1stPerson == 0)
 		return
 	endif
 
