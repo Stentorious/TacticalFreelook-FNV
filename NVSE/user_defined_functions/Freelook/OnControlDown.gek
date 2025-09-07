@@ -2,7 +2,7 @@ int iControlID
 
 begin Function {iControlID}
 
-	if eval IsPC1stPerson == 0
+	if eval Goo1.AuxVarGetFlt "*Freelook_INI" 10 == 0 || IsPC1stPerson == 0
 		return
 	endif
 

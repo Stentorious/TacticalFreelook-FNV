@@ -55,28 +55,43 @@ if eval GetPluginVersion "ShowOffNVSE Plugin" < 145
 	return
 endif
 
+; "*Freelook_INI"
+; 0: bAllowAttacking
+; 1: bAllowAiming
+; 2: iReticleBehavior
+; 3: fLimitYaw
+; 4: fLimitPitchOffset
+; 5: fSensitivityMouse
+; 6: fSensitivityController
+; 7: fRecenterMouse
+; 8: fRecenterController
+; 9: bForceFirstPerson
+; 10: bUseTogglePOV
+; 11: iKeyBind
+
 ; Load INI settings
-Goo1.AuxVarSetFlt "*Freelook_INI" (GetMaxOf 0 (GetINIFloat_Cached "General:bAllowAttacking" "Stentorious\Freelook.ini" 0)) 0
-Goo1.AuxVarSetFlt "*Freelook_INI" (GetMaxOf 0 (GetINIFloat_Cached "General:bAllowAiming" "Stentorious\Freelook.ini" 0)) 1
+Goo1.AuxVarSetFlt "*Freelook_INI" (GetMaxOf 0 (GetINIFloat_Cached "General:bAllowAttacking" "Stentorious\Freelook.ini" 1)) 0
+Goo1.AuxVarSetFlt "*Freelook_INI" (GetMaxOf 0 (GetINIFloat_Cached "General:bAllowAiming" "Stentorious\Freelook.ini" 1)) 1
 Goo1.AuxVarSetFlt "*Freelook_INI" (Clamp (GetINIFloat_Cached "General:iReticleBehavior" "Stentorious\Freelook.ini" 1) 0 2) 2
 Goo1.AuxVarSetFlt "*Freelook_INI" (Clamp (GetINIFloat_Cached "Camera:fLimitYaw" "Stentorious\Freelook.ini" 80) 10 170) 3
 Goo1.AuxVarSetFlt "*Freelook_INI" (Clamp (GetINIFloat_Cached "Camera:fLimitPitchOffset" "Stentorious\Freelook.ini" 20) 0 80) 4
-Goo1.AuxVarSetFlt "*Freelook_INI" ((GetMaxOf 0.1 (GetINIFloat_Cached "Camera:fSensitivityMouse" "Stentorious\Freelook.ini" 1)) * 40) 5
-Goo1.AuxVarSetFlt "*Freelook_INI" (GetMaxOf 0.1 (GetINIFloat_Cached "Camera:fSensitivityController" "Stentorious\Freelook.ini" 1)) 6
-Goo1.AuxVarSetFlt "*Freelook_INI" ((GetMaxOf 0.1 (GetINIFloat_Cached "Camera:fRecenterMouse" "Stentorious\Freelook.ini" 1)) * -10) 7
-Goo1.AuxVarSetFlt "*Freelook_INI" ((GetMaxOf 0.1 (GetINIFloat_Cached "Camera:fRecenterController" "Stentorious\Freelook.ini" 0.5)) * -5) 8
+Goo1.AuxVarSetFlt "*Freelook_INI" (GetMaxOf 0.2 (GetINIFloat_Cached "Camera:fSensitivityMouse" "Stentorious\Freelook.ini" 1)) 5
+Goo1.AuxVarSetFlt "*Freelook_INI" (GetMaxOf 0.2 (GetINIFloat_Cached "Camera:fSensitivityController" "Stentorious\Freelook.ini" 1)) 6
+Goo1.AuxVarSetFlt "*Freelook_INI" (GetMaxOf 0.2 (GetINIFloat_Cached "Camera:fRecenterMouse" "Stentorious\Freelook.ini" 1)) 7
+Goo1.AuxVarSetFlt "*Freelook_INI" (GetMaxOf 0.2 (GetINIFloat_Cached "Camera:fRecenterController" "Stentorious\Freelook.ini" 1)) 8
 Goo1.AuxVarSetFlt "*Freelook_INI" (eval GetINIFloat_Cached "General:bForceFirstPerson" "Stentorious\Freelook.ini" 1) 9
+Goo1.AuxVarSetFlt "*Freelook_INI" (eval GetINIFloat_Cached "General:bUseTogglePOV" "Stentorious\Freelook.ini" 1) 10
+Goo1.AuxVarSetFlt "*Freelook_INI" (Flr (GetMaxOf 0 (GetINIFloat_Cached "General:iKeyBind" "Stentorious\Freelook.ini" 56))) 11
 
-if eval (int iKeyID = GetINIFloat_Cached "General:iKeyBind" "Stentorious\Freelook.ini" 56) > 0
+; Update keybind
+if eval (int iKeyID = Goo1.AuxVarGetFlt "*Freelook_INI" 11) > 0
 	SetOnKeyDownEventHandler (CompileScript "Freelook\OnKeyDown.gek") 1 iKeyID
 	SetOnKeyUpEventHandler (CompileScript "Freelook\OnKeyUp.gek") 1 iKeyID
 endif
 
 ; Intercept TogglePOV controls
-if eval GetINIFloat_Cached "General:bUseTogglePOV" "Stentorious\Freelook.ini"
-	SetOnControlDownEventHandler (CompileScript "Freelook\OnControlDown.gek") 1 13
-	SetOnControlUpEventHandler (CompileScript "Freelook\OnControlUp.gek") 1 13
-endif
+SetOnControlDownEventHandler (CompileScript "Freelook\OnControlDown.gek") 1 13
+SetOnControlUpEventHandler (CompileScript "Freelook\OnControlUp.gek") 1 13
 
 ; Sensitivity update
 Goo1.AuxVarSetFlt "*_Controls:fMouseSensitivity" (GetNumericIniSetting "fMouseSensitivity:Controls" / 0.00125)

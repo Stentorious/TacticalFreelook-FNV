@@ -2,6 +2,10 @@ int iControlID
 
 begin Function {iControlID}
 
+	if eval Goo1.AuxVarGetFlt "*Freelook_INI" 10 == 0
+		return
+	endif
+
 	Call (CompileScript "Freelook\OnKeyUp.gek") 13
 
 	; Ignore input if free looking

@@ -1,0 +1,124 @@
+{
+    "modName": "Freelook",
+    "displayName": "$modDisplayName",
+	"description": "$modDescription",
+    "saveFile": "Stentorious/Freelook.ini",
+    "minMCMVersion": 1.00,
+    "minModVersion": 1.00,
+    "requirements": [
+        { "type": "file", "file": "NVSE/plugins/scripts/ln_Freelook.txt" }
+    ],
+    "submenus": {
+        "0": {
+            "listTitle": "$modDisplayName",
+            "pageTitle": "$modDisplayName",
+            "active": 1,
+            "columns": 2,
+            "enable": 1,
+            "options": {
+                "1": {
+                    "title": "$General",
+                    "enable": 1,
+                    "type": 0
+				},
+                "3": {
+                    "title": "$Keybind",
+                    "enable": 1,
+                    "type": 3,
+                    "mouse": "$KeybindMouse",
+                    "vars": [{ "configINI": "General:iKeyBind", "default": 56 }],
+                    "call": { "type": "file", "value": "Freelook/MCMExtender/UpdateKeybind.gek" }
+                },
+                "5": {
+                    "title": "$ForceFirstPerson",
+                    "enable": 1,
+                    "type": 5,
+                    "mouse": "$ForceFirstPersonMouse",
+                    "vars": [{ "form": "Goo1", "auxVar": "*Freelook_INI", "key": 9, "configINI": "General:bForceFirstPerson", "default": 1 }]
+                },
+                "7": {
+                    "title": "$UseTogglePOV",
+                    "enable": 1,
+                    "type": 5,
+                    "mouse": "$UseTogglePOVMouse",
+                    "vars": [{ "form": "Goo1", "auxVar": "*Freelook_INI", "key": 10, "configINI": "General:bUseTogglePOV", "default": 1 }]
+                },
+                "9": {
+                    "title": "$AllowAttacking",
+                    "enable": 1,
+                    "type": 5,
+                    "mouse": "$AllowAttackingMouse",
+                    "vars": [{ "form": "Goo1", "auxVar": "*Freelook_INI", "key": 0, "configINI": "General:bAllowAttacking", "default": 1 }]
+                },
+                "11": {
+                    "title": "$AllowAiming",
+                    "enable": 1,
+                    "type": 5,
+                    "mouse": "$AllowAimingMouse",
+                    "vars": [{ "form": "Goo1", "auxVar": "*Freelook_INI", "key": 1, "configINI": "General:bAllowAiming", "default": 1 }]
+                },
+                "13": {
+                    "title": "$ReticleBehavior",
+                    "enable": 1,
+                    "type": 1,
+                    "mouse": "$ReticleBehaviorMouse",
+                    "vars": [{ "form": "Goo1", "auxVar": "*Freelook_INI", "key": 2, "configINI": "General:iReticleBehavior", "default": 1 }],
+                    "strings": ["$HideReticle", "$DotReticle", "$DefaultReticle"]
+                },
+                "2": {
+                    "title": "$Camera",
+                    "enable": 1,
+                    "type": 0
+				},
+                "4": {
+                    "title": "$LimitYaw",
+                    "type": 2,
+                    "enable": 1,
+                    "mouse": "$LimitYawMouse",
+                    "vars": [{ "form": "Goo1", "auxVar": "*Freelook_INI", "key": 3, "configINI": "Camera:fLimitYaw", "default": 80 }],
+                    "scale": { "valueDecimal": 0, "valueIncrement": 1, "valueMin": 10, "valueMax": 170 }
+                },
+                "6": {
+                    "title": "$LimitPitchOffset",
+                    "type": 2,
+                    "enable": 1,
+                    "mouse": "$LimitPitchOffsetMouse",
+                    "vars": [{ "form": "Goo1", "auxVar": "*Freelook_INI", "key": 4, "configINI": "Camera:fLimitPitchOffset", "default": 20 }],
+                    "scale": { "valueDecimal": 0, "valueIncrement": 1, "valueMin": 0, "valueMax": 80 }
+                },
+                "8": {
+                    "title": "$SensitivityMouse",
+                    "type": 2.5,
+                    "enable": 1,
+                    "mouse": "$SensitivityMouseMouse",
+                    "vars": [{ "form": "Goo1", "auxVar": "*Freelook_INI", "key": 5, "configINI": "Camera:fSensitivityMouse", "default": 1 }],
+                    "scale": { "valueDecimal": 1, "valueIncrement": 0.1, "valueMin": 0.1, "valueMax": 5 }
+                },
+                "10": {
+                    "title": "$SensitivityController",
+                    "type": 2.5,
+                    "enable": 1,
+                    "mouse": "$SensitivityControllerMouse",
+                    "vars": [{ "form": "Goo1", "auxVar": "*Freelook_INI", "key": 6, "configINI": "Camera:fSensitivityController", "default": 1 }],
+                    "scale": { "valueDecimal": 1, "valueIncrement": 0.1, "valueMin": 0.1, "valueMax": 5 }
+                },
+                "12": {
+                    "title": "$RecenterSpeedMouse",
+                    "type": 2.5,
+                    "enable": 1,
+                    "mouse": "$RecenterSpeedMouseMouse",
+                    "vars": [{ "form": "Goo1", "auxVar": "*Freelook_INI", "key": 7, "configINI": "Camera:fRecenterMouse", "default": 1 }],
+                    "scale": { "valueDecimal": 1, "valueIncrement": 0.1, "valueMin": 0.2, "valueMax": 2 }
+                },
+                "14": {
+                    "title": "$RecenterSpeedController",
+                    "type": 2.5,
+                    "enable": 1,
+                    "mouse": "$RecenterSpeedControllerMouse",
+                    "vars": [{ "form": "Goo1", "auxVar": "*Freelook_INI", "key": 8, "configINI": "Camera:fRecenterController", "default": 1 }],
+                    "scale": { "valueDecimal": 1, "valueIncrement": 0.1, "valueMin": 0.2, "valueMax": 2 }
+                }
+            }
+        }
+    }
+}

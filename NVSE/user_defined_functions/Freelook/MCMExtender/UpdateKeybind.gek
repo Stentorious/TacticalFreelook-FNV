@@ -1,0 +1,25 @@
+float fValue
+int iMenu
+int iSubmenu
+int iOption
+array_var aJSON
+
+int iKeybind
+
+Begin Function {fValue, iMenu, iSubmenu, iOption, aJSON}
+
+	if eval (iKeybind = Goo1.AuxVarGetFlt "*Freelook_INI" 11) != fValue
+		if eval iKeybind > 0
+			SetOnKeyDownEventHandler (CompileScript "Freelook\OnKeyDown.gek") 0 iKeybind
+			SetOnKeyUpEventHandler (CompileScript "Freelook\OnKeyUp.gek") 0 iKeybind
+		endif
+		if eval fValue > 0
+			SetOnKeyDownEventHandler (CompileScript "Freelook\OnKeyDown.gek") 1 fValue
+			SetOnKeyUpEventHandler (CompileScript "Freelook\OnKeyUp.gek") 1 fValue
+		endif
+		Goo1.AuxVarSetFlt "*Freelook_INI" fValue 11
+	endif
+
+	aJSON = ar_Null
+
+End

@@ -24,9 +24,9 @@ begin Function {}
 		fOffset = (Goo1.AuxVarGetFlt "*Freelook_Cache" 2) * -1
 		if eval ABS (fPitch - fOffset) >= 0.025 || ABS fYaw >= 0.025
 			if eval GetController
-				fSmoothRate = 1 - Exp (fDeltaTime * (Goo1.AuxVarGetFlt "*Freelook_INI" 8))
+				fSmoothRate = 1 - Exp (fDeltaTime * (Goo1.AuxVarGetFlt "*Freelook_INI" 8) * -5)
 			else
-				fSmoothRate = 1 - Exp (fDeltaTime * (Goo1.AuxVarGetFlt "*Freelook_INI" 7))
+				fSmoothRate = 1 - Exp (fDeltaTime * (Goo1.AuxVarGetFlt "*Freelook_INI" 7) * -10)
 			endif
 			Goo1.AuxVarSetFlt "*Freelook_Cache" (fPitch = Lerp (Goo1.AuxVarGetFlt "*Freelook_Cache" 0) fOffset fSmoothRate) 0
 			Goo1.AuxVarSetFlt "*Freelook_Cache" (fYaw = Lerp (Goo1.AuxVarGetFlt "*Freelook_Cache" 1) 0 fSmoothRate) 1
@@ -87,7 +87,7 @@ begin Function {}
 		if eval fCamX == 0 && fCamY == 0
 			return
 		endif
-		fSensitivity = Goo1.AuxVarGetFlt "*Freelook_INI" 5
+		fSensitivity = (Goo1.AuxVarGetFlt "*Freelook_INI" 5) * 40
 	endif
 
 	fLimitYaw = Goo1.AuxVarGetFlt "*Freelook_INI" 3

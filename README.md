@@ -5,7 +5,7 @@
 
 ## Overview
 - Adds Arma inspired first person freelooking.
-- Rotate your camera independent of your movement direction while holding a key bind.over certain items.
+- Rotate your camera independent of your movement direction while holding a keybind.over certain items.
 
 ### Controls
 - Keyboard: Left Alt
@@ -15,7 +15,7 @@
 - Configurable via the included Freelook.ini.
 
 ### General
-- Set key bind.
+- Set keybind.
 - Allow attacking while freelooking.
 - Allow aim/blocking while freelooking.
 - Set reticle behavior.
