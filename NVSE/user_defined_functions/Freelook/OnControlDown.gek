@@ -2,12 +2,13 @@ int iControlID
 
 begin Function {iControlID}
 
-	if eval Goo1.AuxVarGetFlt "*Freelook_INI" 10 == 0 || IsPC1stPerson == 0
+	if eval Goo1.AuxVarGetFlt "*Freelook_INI" 10 == 0 || IsPC1stPerson == 0 || Player.GetSitting
 		return
 	endif
 
 	; Intercept TogglePOV control
 	DC 13
+	CallAfterFrames 1 ({} => EC 13)
 	AuxTimerStart "*Freelook_POV" 0.2 14
 	Call (CompileScript "Freelook\OnKeyDown.gek") 13
 

@@ -14,7 +14,6 @@ begin Function {iControlID}
 	endif
 
 	; Toggle POV
-	EC 13
 	TC 13
 
 end
