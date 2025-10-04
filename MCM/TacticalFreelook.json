@@ -30,18 +30,18 @@
                     "call": { "type": "file", "value": "Freelook/MCMExtender/UpdateKeybind.gek" }
                 },
                 "5": {
-                    "title": "$ForceFirstPerson",
-                    "enable": 1,
-                    "type": 5,
-                    "mouse": "$ForceFirstPersonMouse",
-                    "vars": [{ "form": "Goo1", "auxVar": "*Freelook_INI", "key": 9, "configINI": "General:bForceFirstPerson", "default": 1 }]
-                },
-                "7": {
                     "title": "$UseTogglePOV",
                     "enable": 1,
                     "type": 5,
                     "mouse": "$UseTogglePOVMouse",
                     "vars": [{ "form": "Goo1", "auxVar": "*Freelook_INI", "key": 10, "configINI": "General:bUseTogglePOV", "default": 1 }]
+                },
+                "7": {
+                    "title": "$ForceFirstPerson",
+                    "enable": 1,
+                    "type": 5,
+                    "mouse": "$ForceFirstPersonMouse",
+                    "vars": [{ "form": "Goo1", "auxVar": "*Freelook_INI", "key": 9, "configINI": "General:bForceFirstPerson", "default": 1 }]
                 },
                 "9": {
                     "title": "$AllowAttacking",
@@ -63,7 +63,7 @@
                     "type": 1,
                     "mouse": "$ReticleBehaviorMouse",
                     "vars": [{ "form": "Goo1", "auxVar": "*Freelook_INI", "key": 2, "configINI": "General:iReticleBehavior", "default": 1 }],
-                    "strings": ["$HideReticle", "$DotReticle", "$DefaultReticle"]
+                    "strings": ["$Hide", "$Dot", "$Default"]
                 },
                 "2": {
                     "title": "$Camera",
@@ -90,33 +90,37 @@
                     "title": "$SensitivityMouse",
                     "type": 2.5,
                     "enable": 1,
+					"suffix": "x",
                     "mouse": "$SensitivityMouseMouse",
                     "vars": [{ "form": "Goo1", "auxVar": "*Freelook_INI", "key": 5, "configINI": "Camera:fSensitivityMouse", "default": 1 }],
-                    "scale": { "valueDecimal": 1, "valueIncrement": 0.1, "valueMin": 0.1, "valueMax": 5 }
+                    "scale": { "valueDecimal": 1, "valueIncrement": 0.1, "valueMin": 0.1, "valueMax": 5, "suffix": "x" }
                 },
                 "10": {
                     "title": "$SensitivityController",
                     "type": 2.5,
                     "enable": 1,
+					"suffix": "x",
                     "mouse": "$SensitivityControllerMouse",
                     "vars": [{ "form": "Goo1", "auxVar": "*Freelook_INI", "key": 6, "configINI": "Camera:fSensitivityController", "default": 1 }],
-                    "scale": { "valueDecimal": 1, "valueIncrement": 0.1, "valueMin": 0.1, "valueMax": 5 }
+                    "scale": { "valueDecimal": 1, "valueIncrement": 0.1, "valueMin": 0.1, "valueMax": 5, "suffix": "x" }
                 },
                 "12": {
                     "title": "$RecenterSpeedMouse",
                     "type": 2.5,
                     "enable": 1,
+					"suffix": "x",
                     "mouse": "$RecenterSpeedMouseMouse",
                     "vars": [{ "form": "Goo1", "auxVar": "*Freelook_INI", "key": 7, "configINI": "Camera:fRecenterMouse", "default": 1 }],
-                    "scale": { "valueDecimal": 1, "valueIncrement": 0.1, "valueMin": 0.2, "valueMax": 2 }
+                    "scale": { "valueDecimal": 1, "valueIncrement": 0.1, "valueMin": 0.2, "valueMax": 2, "suffix": "x" }
                 },
                 "14": {
                     "title": "$RecenterSpeedController",
                     "type": 2.5,
                     "enable": 1,
+					"suffix": "x",
                     "mouse": "$RecenterSpeedControllerMouse",
                     "vars": [{ "form": "Goo1", "auxVar": "*Freelook_INI", "key": 8, "configINI": "Camera:fRecenterController", "default": 1 }],
-                    "scale": { "valueDecimal": 1, "valueIncrement": 0.1, "valueMin": 0.2, "valueMax": 2 }
+                    "scale": { "valueDecimal": 1, "valueIncrement": 0.1, "valueMin": 0.2, "valueMax": 2, "suffix": "x" }
                 }
             }
         }
