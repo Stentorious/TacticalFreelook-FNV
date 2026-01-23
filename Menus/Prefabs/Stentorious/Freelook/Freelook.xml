@@ -1,11 +1,13 @@
 <image name="FreeLookDot">
 	<_visible> 0 </_visible>
+	<_visible_pa> 1 </_visible_pa>
 	<visible>
 		<copy src="ReticleCenter" trait="visible" />
 		<or src="AmmoTypeLabel" trait="visible" />
 		<or src="ActionPoints" trait="visible" />
 		<or src="HitPoints" trait="visible" />
 		<and src="me()" trait="_visible" />
+		<and src="me()" trait="_visible_pa" />
 	</visible>
 	<x>
 		<copy src="screen()" trait="width"/>
