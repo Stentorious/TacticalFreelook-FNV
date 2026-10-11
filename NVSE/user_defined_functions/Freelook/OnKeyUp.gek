@@ -14,13 +14,17 @@ begin Function {iKeyID}
 	; Enable controls
 	ToggleMouseMovement 3
 	SetStickDisabled 1 0
-	EnablePlayerControlsAltEx 30132
 	EC 5
-	EC 6
+
+	; Realtime Pip-Boy Map support
+	if Goo1.AuxVarGetFlt "*PipMap_Anim" == 0
+		EnablePlayerControlsAltEx 30132
+		EC 6
+		SetUIFloatAlt "HUDMainMenu\JDC\_visible_stent" 1
+		SetUIFloatAlt "HUDMainMenu\ReticleCenter\reticle_center\alpha" 255
+	endif
 
 	; Update reticle
-	SetUIFloatAlt "HUDMainMenu\JDC\_visible_stent" 1
-	SetUIFloatAlt "HUDMainMenu\ReticleCenter\reticle_center\alpha" 255
 	SetUIFloatAlt "HUDMainMenu\FreelookDot\_visible" 0
 
 end
