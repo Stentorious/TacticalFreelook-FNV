@@ -67,10 +67,9 @@ Goo1.AuxVarSetFlt "*Freelook_INI" (GetMaxOf 0.2 (GetINIFloat_Cached "Camera:fRec
 Goo1.AuxVarSetFlt "*Freelook_INI" (GetMaxOf 0.2 (GetINIFloat_Cached "Camera:fRecenterController" "Stentorious\Freelook.ini" 1)) 8
 Goo1.AuxVarSetFlt "*Freelook_INI" (eval GetINIFloat_Cached "General:bForceFirstPerson" "Stentorious\Freelook.ini" 1) 9
 Goo1.AuxVarSetFlt "*Freelook_INI" (eval GetINIFloat_Cached "General:bUseTogglePOV" "Stentorious\Freelook.ini" 1) 10
-Goo1.AuxVarSetFlt "*Freelook_INI" (Flr (GetMaxOf 0 (GetINIFloat_Cached "General:iKeyBind" "Stentorious\Freelook.ini" 56))) 11
 
 ; Update keybind
-if eval (int iKeyID = Goo1.AuxVarGetFlt "*Freelook_INI" 11) > 0
+if eval (int iKeyID = (Flr (GetMaxOf 0 (GetINIFloat_Cached "General:iKeyBind" "Stentorious\Freelook.ini" 56)))) > 0
 	SetOnKeyDownEventHandler (CompileScript "Freelook\OnKeyDown.gek") 1 iKeyID
 	SetOnKeyUpEventHandler (CompileScript "Freelook\OnKeyUp.gek") 1 iKeyID
 endif
