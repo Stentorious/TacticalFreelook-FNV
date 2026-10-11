@@ -94,7 +94,9 @@ SetOnControlDownEventHandler (CompileScript "Freelook\OnControlDown.gek") 1 13
 SetOnControlUpEventHandler (CompileScript "Freelook\OnControlUp.gek") 1 13
 
 ; Sensitivity update
-Goo1.AuxVarSetFlt "*_Controls:fMouseSensitivity" (GetNumericIniSetting "fMouseSensitivity:Controls" / 0.00125)
-SetJohnnyOnSettingsUpdateEventHandler 1 ({} => Goo1.AuxVarSetFlt "*_Controls:fMouseSensitivity" (GetNumericIniSetting "fMouseSensitivity:Controls" / 0.00125))
+if eval Goo1.AuxVarType "*_Controls:fMouseSensitivity" == 0
+	Goo1.AuxVarSetFlt "*_Controls:fMouseSensitivity" (GetNumericIniSetting "fMouseSensitivity:Controls" / 0.00125)
+	SetJohnnyOnSettingsUpdateEventHandler 1 ({} => Goo1.AuxVarSetFlt "*_Controls:fMouseSensitivity" (GetNumericIniSetting "fMouseSensitivity:Controls" / 0.00125))
+endif
 
 CloseFileSO "Stentorious\Freelook.ini" 0
